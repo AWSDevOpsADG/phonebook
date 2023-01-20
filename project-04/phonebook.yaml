@@ -58,7 +58,7 @@ Resources:
                 Value: !Sub Web Server of ${AWS::StackName} Stack
         UserData: 
           Fn::Base64:
-            !Sub
+            !Sub 
               - |
                 #! /bin/bash
                 yum update -y
@@ -67,7 +67,7 @@ Resources:
                 pip3 install flask_mysql
                 echo "${MyDBURI}" > /home/ec2-user/dbserver.endpoint
                 TOKEN="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"
-                FOLDER="https://$TOKEN@raw.githubusercontent.com/AWSDevOpsADG/phonebook/main/"
+                FOLDER="https://$TOKEN@raw.githubusercontent.com/AWSDevOpsADG/phonebook/main/project-04"
                 curl -s --create-dirs -o "/home/ec2-user/templates/index.html" -L "$FOLDER"/templates/index.html
                 curl -s --create-dirs -o "/home/ec2-user/templates/add-update.html" -L "$FOLDER"/templates/add-update.html
                 curl -s --create-dirs -o "/home/ec2-user/templates/delete.html" -L "$FOLDER"/templates/delete.html
@@ -110,7 +110,7 @@ Resources:
       AvailabilityZones:
         !GetAZs ""
       DesiredCapacity: 2
-      HealthCheckGracePeriod: 300
+      HealthCheckGracePeriod: 90
       HealthCheckType: ELB
       LaunchTemplate:
         LaunchTemplateId: !Ref WebServerLT
@@ -148,7 +148,7 @@ Resources:
 
 Outputs:
   WebsiteURL:
-    Value: !Sub
+    Value: !Sub 
       - http://${ALBAddress}
       - ALBAddress: !GetAtt ApplicationLoadBalancer.DNSName
     Description: Phonebook Application Load Balancer URL
